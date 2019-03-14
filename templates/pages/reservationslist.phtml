@@ -1,13 +1,12 @@
 <main style="margin: 0 auto; width: 50%">
-        <div class="error"><?php Session::displayErrors(); ?></div>
-        <div class="success"><?php Session::displaySuccesses(); ?></div>
+    <div class="error"><?php Session::displayErrors(); ?></div>
+    <div class="success"><?php Session::displaySuccesses(); ?></div>
     <table class="pure-table pure-table-horizontal">
         <thead>
             <tr>
                 <th></th>
                 <th>Date</th>
                 <th>Nom</th>
-                <th>Numéro de téléphone</th>
                 <th>Nombre de personnes</th>
                 <th>Gestion</th>
             </tr>
@@ -18,7 +17,6 @@
                 <td><?= $index + 1 ?></td>
                 <td><?= $reservation['date'] ?></td>
                 <td><?= $reservation['name'] ?></td>
-                <td><a href="tel:<?= $reservation['phonenumber'] ?>"><?= $reservation['phonenumber'] ?></a></td>
                 <td><?= $reservation['number'] ?></td>
                 <td>
                     <a href="reservations/update/<?= $reservation['id'] ?>">Modifier</a>

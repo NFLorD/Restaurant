@@ -38,27 +38,44 @@ class ReservationsController extends Controller
             exit;
         }
 
-        if (empty($_POST['name']) || empty($_POST['phone']) || empty($_POST['number']) || empty($_POST['date']) || empty($_POST['time'])) {
+        if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['number']) || empty($_POST['date']) || empty($_POST['time'])) {
             Session::addError("Vous devez remplir tous les champs.");
             Http::redirectBack();
         }
 
         $date = $_POST['date'] . " " . $_POST['time'];
+        $email = $_POST['email'];
+        $number = $_POST['number'];
 
         if (empty($_GET['id'])) {
+            $password = password_hash(time(), PASSWORD_DEFAULT);
             if ($_SESSION['connected']) {
-                $created = $this->model->create(['name' => $_POST['name'], 'phonenumber' => $_POST['phone'], 'number' => $_POST['number'], 'date' => $date, 'customer_id' => $_SESSION['user']['id']]);
+                $created = $this->model->create(['name' => $_POST['name'], 'email' => $_POST['email'], 'number' => $_POST['number'], 'date' => $date, 'password' => $password, 'customer_id' => $_SESSION['user']['id']]);
             } else {
-                $created = $this->model->create(['name' => $_POST['name'], 'phonenumber' => $_POST['phone'], 'number' => $_POST['number'], 'date' => $date]);
+                $created = $this->model->create(['name' => $_POST['name'], 'email' => $_POST['email'], 'number' => $_POST['number'], 'date' => $date, 'password' => $password]);
             }
             if ($created == 0) {
                 Session::addError("Une erreur s'est produite.");
             } else {
                 Session::addSuccess("Votre réservation du " . $_POST['date'] . " a bien été enregistrée !");
+                $headers = array(
+                    'From' => 'webmaster@cheznico.com',
+                    'Reply-To' => 'webmaster@cheznico.com',
+                    'X-Mailer' => 'PHP/' . phpversion()
+                );
+                $sent = mail($email, "Réservation - Chez Nico'", "Vous avez réservé pour $number personne(s) le $date.\n 
+                Pour tout changement, suivez ce lien : localhost/Restaurant/reservations/update/$password,\n
+                pour la supprimer : localhost/Restaurant/reservations/delete/$password", $headers);
+                var_dump($sent);
+                exit;
             }
             Http::redirectBack();
         } else {
-            $this->model->update('id', $_GET['id'], ['name' => $_POST['name'], 'phonenumber' => $_POST['phone'], 'number' => $_POST['number'], 'date' => $date]);
+            if(is_int($_GET['id'])){
+                $this->model->update('id', $_GET['id'], ['name' => $_POST['name'], 'email' => $_POST['email'], 'number' => $_POST['number'], 'date' => $date]);
+            } else {
+                $this->model->update('password', $_GET['id'], ['name' => $_POST['name'], 'email' => $_POST['email'], 'number' => $_POST['number'], 'date' => $date]);
+            }
             Session::addSuccess("Votre modification a bien été prise en compte.");
             Http::redirectBack();
         }

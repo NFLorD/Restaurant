@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Mer 13 Mars 2019 à 17:22
--- Version du serveur :  5.7.24-0ubuntu0.16.04.1
--- Version de PHP :  7.0.32-0ubuntu0.16.04.1
+-- Hôte : 127.0.0.1
+-- Généré le :  jeu. 14 mars 2019 à 21:55
+-- Version du serveur :  10.1.37-MariaDB
+-- Version de PHP :  7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,67 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `customers`
---
-
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
-  `firstname` varchar(100) NOT NULL,
-  `lastname` varchar(100) NOT NULL,
-  `phonenumber` varchar(10) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `customers`
---
-
-INSERT INTO `customers` (`id`, `firstname`, `lastname`, `phonenumber`, `email`, `password`) VALUES
-(1, 'Nicolas', 'Fasano', '0623309121', 'fasano.nm@gmail.com', '$2y$10$KuIQ33jTQbFgJIMZzAWQ.eubj8qmwIbNaDz2Z9E2MvM.lqes66TyG'),
-(2, 'Jeannot', 'Fasano', '0000000000', 'mongolito@gmail.con', '$2y$10$d79DCTWJXf5d6Aw60VyAFOxtwkpkI7zQIxST65iUM9KDjooIiRYXK');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `dishes`
---
-
-CREATE TABLE `dishes` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text,
-  `image` varchar(255) DEFAULT NULL,
-  `type` varchar(30) NOT NULL,
-  `price` decimal(4,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `dishes`
---
-
-INSERT INTO `dishes` (`id`, `name`, `description`, `image`, `type`, `price`) VALUES
-(1, 'Random burger', 'It\'s got steaks and bacon !', NULL, 'dish', '10.99'),
-(2, 'Moules frites', 'Des moules et des frites.', NULL, 'dish', '17.99'),
-(3, 'Coquilles Saint-Jacques', 'Accompagnées de leur petite salade de mesclun', NULL, 'dish', '22.99'),
-(8, 'Salade niçoise', 'Tomates, poivrons verts « corne de bœuf », ail, oignons rouges ou cébettes, fèvettes, céleri, petits artichauts violets, concombres, œufs durs, filets d\'anchois (à l\'huile d\'olive ou salés) ou thon au naturel, olives noires niçoises, et huile d\'olive.', NULL, 'appetizer', '8.99'),
-(14, 'Tarte tatin', 'Pommes flambées au rhum, sucre de canne', NULL, 'dessert', '9.50'),
-(15, 'Banana split', 'L\'excellence de la gastronomie française !', NULL, 'dessert', '8.00');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `favourite_dishes`
---
-
-CREATE TABLE `favourite_dishes` (
-  `customer_id` int(11) NOT NULL,
-  `dish_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `reservations`
 --
 
@@ -92,44 +33,28 @@ CREATE TABLE `reservations` (
   `name` varchar(100) NOT NULL,
   `date` datetime NOT NULL,
   `number` int(11) NOT NULL,
-  `phonenumber` varchar(10) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `customer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `reservations`
+-- Déchargement des données de la table `reservations`
 --
 
-INSERT INTO `reservations` (`id`, `name`, `date`, `number`, `phonenumber`, `customer_id`) VALUES
-(4, 'Fasano', '2019-03-05 12:15:00', 2, '0623309121', 1),
-(6, 'Fasano', '2019-03-16 01:01:00', 1, '0623309121', NULL),
-(7, 'Fasano', '2019-03-15 00:00:00', 1, '0623309121', NULL),
-(8, 'Fasano', '2019-03-22 00:00:00', 2, '0623309121', 1),
-(12, 'Tabano', '2019-01-01 00:00:00', 1, '000', NULL),
-(13, 'Albert', '2019-03-15 12:59:00', 1, '0000000000', NULL),
-(15, 'Fasano', '2019-03-15 00:00:00', 2, '0623309121', NULL);
+INSERT INTO `reservations` (`id`, `name`, `date`, `number`, `email`, `password`, `customer_id`) VALUES
+(17, 'Fasano', '2019-03-15 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$Xo5umbH5bUerzoUHHjb1TeMlVU94OGQ4PP.rvdI7Tug0x8IusQIVi', NULL),
+(18, 'Fasano', '2019-03-16 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$LCXCMXJOP0Cj1RhunVIOb.puyAtByvsorew6VtZlc8qhqhEQZFT5G', NULL),
+(19, 'Fasano', '2019-03-17 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$ANbj5yDufiGtMicgRNWVBuD912Xj2f3ZRTCumVXxo1s.3uk89yFhS', NULL),
+(20, 'Fasano', '2019-03-17 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$7jGvRyGx0jaZN7DBJtyMfeGgknpSynWIjox9B98ehuVFt.Y452Zga', NULL),
+(21, 'Fasano', '2019-03-17 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$oRZRRxFC51Hr7CTepj41le/NihE37xKFLYZlbQOYv.zfi./kyrx7m', NULL),
+(22, 'Fasano', '2019-03-17 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$Az3aaHAwXlQ0hVAxN5EjUuTr20ad1WzZq7.J/wB4Ytj2MhqXnGKxS', NULL),
+(23, 'Fasano', '2019-03-17 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$TbtBxsbfXA.9fVjQzPdrr.nzZBr5KmYSwGWYpKgz4sCTO24Ut6GES', NULL),
+(24, 'Fasano', '2019-03-17 12:00:00', 2, 'fasano.nm@gmail.com', '$2y$10$SR2p8mQvZs4rTho1kU4b4.nus0NF8DWc46y.AO9SWUTts7WPeB0g2', NULL);
 
 --
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
-
---
--- Index pour la table `customers`
---
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `dishes`
---
-ALTER TABLE `dishes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `favourite_dishes`
---
-ALTER TABLE `favourite_dishes`
-  ADD PRIMARY KEY (`customer_id`);
 
 --
 -- Index pour la table `reservations`
@@ -139,24 +64,16 @@ ALTER TABLE `reservations`
   ADD KEY `customer_id` (`customer_id`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
---
--- AUTO_INCREMENT pour la table `customers`
---
-ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT pour la table `dishes`
---
-ALTER TABLE `dishes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pour la table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

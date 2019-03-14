@@ -61,7 +61,7 @@ abstract class Tables
 
     private function getPDO() : PDO
     {
-        return new PDO("mysql:host=localhost;dbname=restaurant;charset=utf8", "root", "troiswa");
+        return new PDO("mysql:host=localhost;dbname=restaurant;charset=utf8", "root", "");
     }
 
     public function findAll(int $limit = 0, string $order = "")

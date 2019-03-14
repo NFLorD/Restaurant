@@ -6,17 +6,17 @@
                     endif ?>" method="post" class="pure-form pure-form-aligned">
         <fieldset>
             <div class="pure-control-group">
-                <label for="name">Votre nom</label>
-                <input id="name" name="name" type="text" value="<?php if (!empty($_GET['id'])) : echo $reservation['name'];
+                <label for="name" <?php if ($_SESSION['connected']) : ?>hidden<?php endif ?>>Votre nom</label>
+                <input id="name" <?php if ($_SESSION['connected']) : ?>hidden<?php endif ?> name="name" type="text" value="<?php if (!empty($_GET['id'])) : echo $reservation['name'];
                                                                 else : if ($_SESSION['connected']) : echo $_SESSION['user']['lastname'];
                                                                 endif;
                                                                 endif ?>">
             </div>
 
             <div class="pure-control-group">
-                <label for="phone">Votre numéro de téléphone</label>
-                <input id="phone" name="phone" type="tel" value="<?php if (!empty($_GET['id'])) : echo $reservation['phonenumber'];
-                                                                else : if ($_SESSION['connected']) : echo $_SESSION['user']['phonenumber'];
+                <label for="email" <?php if ($_SESSION['connected']) : ?>hidden<?php endif ?>>Votre e-mail</label>
+                <input id="email" <?php if ($_SESSION['connected']) : ?>hidden<?php endif ?> name="email" type="email" value="<?php if (!empty($_GET['id'])) : echo $reservation['email'];
+                                                                else : if ($_SESSION['connected']) : echo $_SESSION['user']['email'];
                                                                 endif;
                                                                 endif ?>">
             </div>
@@ -25,13 +25,13 @@
                 <label for="date">Votre réservation</label>
                 <input type="date" name="date" id="date" value="<?php if (!empty($_GET['id'])) : echo $reservation['date'];
                                                                 endif ?>">
-                <input type="time" name="time" id="time" value="<?php if (!empty($_GET['id'])) : echo $reservation['time'];
+                <input type="time" name="time" id="time" min="11:45" max="21:30" value="<?php if (!empty($_GET['id'])) : echo $reservation['time']; else: echo "12:00";
                                                                 endif ?>">
             </div>
 
             <div class="pure-control-group">
                 <label for="number">Nombre de personnes</label>
-                <input name="number" type="number" value="<?php if (!empty($_GET['id'])) : echo $reservation['number'];
+                <input name="number" type="number" max="6" min="1" oninput="this.value = Math.abs(this.value)" value="<?php if (!empty($_GET['id'])) : echo $reservation['number']; else: echo "2";
                                                             endif ?>">
             </div>
 
@@ -42,4 +42,8 @@
             </div>
         </fieldset>
     </form>
+    <script>
+        let today = new Date().toISOString().split('T')[0];
+        document.querySelector("input[type='date']").setAttribute('min', today);
+    </script>
 </main>
