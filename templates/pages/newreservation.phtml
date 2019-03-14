@@ -1,0 +1,45 @@
+<main>
+        <div class="error"><?php Session::displayErrors(); ?></div>
+        <div class="success"><?php Session::displaySuccesses(); ?></div>
+    <form action="<?php if (!empty($_GET['id'])) : echo $_GET['id'];
+                    else : echo "reservation";
+                    endif ?>" method="post" class="pure-form pure-form-aligned">
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="name">Votre nom</label>
+                <input id="name" name="name" type="text" value="<?php if (!empty($_GET['id'])) : echo $reservation['name'];
+                                                                else : if ($_SESSION['connected']) : echo $_SESSION['user']['lastname'];
+                                                                endif;
+                                                                endif ?>">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="phone">Votre numéro de téléphone</label>
+                <input id="phone" name="phone" type="tel" value="<?php if (!empty($_GET['id'])) : echo $reservation['phonenumber'];
+                                                                else : if ($_SESSION['connected']) : echo $_SESSION['user']['phonenumber'];
+                                                                endif;
+                                                                endif ?>">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="date">Votre réservation</label>
+                <input type="date" name="date" id="date" value="<?php if (!empty($_GET['id'])) : echo $reservation['date'];
+                                                                endif ?>">
+                <input type="time" name="time" id="time" value="<?php if (!empty($_GET['id'])) : echo $reservation['time'];
+                                                                endif ?>">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="number">Nombre de personnes</label>
+                <input name="number" type="number" value="<?php if (!empty($_GET['id'])) : echo $reservation['number'];
+                                                            endif ?>">
+            </div>
+
+            <div class="pure-controls">
+                <button type="submit" class="pure-button pure-button-primary"><?php if (!empty($_GET['id'])) : echo "Modifier";
+                                                                                else : echo "Valider ma réservation";
+                                                                                endif ?></button>
+            </div>
+        </fieldset>
+    </form>
+</main>

@@ -1,0 +1,21 @@
+<main id="cart">
+    <section>
+        <?php foreach ($_SESSION['cart'] as $type) : ?>
+            <?php foreach ($type as $dish) : ?>
+            <p><?= $dish['details']['name'] . " : " . $dish["qty"] ?></p>
+            <?php endforeach ?>
+        <?php endforeach ?>
+        <div>Total : <?= $_SESSION['total'] ?> €</div>
+    </section>
+    <aside>
+        <form action="<?= WEB_ROOT ?>/order">
+            <button>Modifier</button>
+        </form>
+        <form action="cart/payment">
+            <button>Confirmer et payer</button>
+        </form>
+        <form action="cart/cancel">
+            <button>Annuler</button>
+        </form>
+    </aside>
+</main>

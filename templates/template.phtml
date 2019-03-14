@@ -1,0 +1,25 @@
+<?php $scripts = [WEB_ROOT . "/js/dishes_management.js"]; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="refresh" content="1200;URL=<?= WEB_ROOT ?>/logout" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?= WEB_ROOT ?>/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title><?= $title ?></title>
+</head>
+    <body>
+        <input type="hidden" id="connected" value="<?= $_SESSION['connected'] ?>">
+        <div id="cache" class="position-fixed m-0 p-0"></div>  
+        <?php require "partials/header.phtml" ?>
+        <?php require "pages/" . $template . ".phtml" ?>
+        <?php require "partials/footer.phtml" ?>
+        <?php foreach ($scripts as $script) : ?>
+            <script src="<?= $script ?>"></script>
+        <?php endforeach ?>
+    </body>
+</html>

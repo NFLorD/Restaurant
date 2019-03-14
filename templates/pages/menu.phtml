@@ -1,0 +1,21 @@
+<main id="menu">
+        <div class="error"><?php Session::displayErrors(); ?></div>
+        <div class="success"><?php Session::displaySuccesses(); ?></div>
+        <h2><?php if ($dishes[0]['type'] == "appetizer") : echo "Nos entrées";
+            else : if ($dishes[0]['type'] == "dish") : echo "Nos plats";
+            else : echo "Nos desserts";
+            endif;
+            endif ?></h2>
+    <?php foreach ($dishes as $index => $dish) : ?>
+        <article>
+            <h3><?= $dish['name'] ?></h3>
+            <p><?= $dish['description'] ?></p>
+            <p><em><?= $dish['price'] ?> €</em></p>
+        </article>
+        <style>
+            article:nth-of-type(<?= $index + 1 ?>){
+                background: url(<?= $dish['image'] ?>) center;
+            }
+        </style>
+    <?php endforeach ?>
+</main>

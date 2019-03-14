@@ -1,0 +1,111 @@
+<main id="dishlist">
+        <div class="error"><?php Session::displayErrors(); ?></div>
+        <div class="success"><?php Session::displaySuccesses(); ?></div>
+    <ul>
+        <li>
+            <a href="#/"class="dishesLink">Entrées</a>
+            <table class="pure-table pure-table-horizontal">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Gestion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dishes[0] as $index => $appetizer) : ?>
+                    <tr>
+                        <td><?= $index + 1 ?></td>
+                        <td><?= $appetizer['name'] ?></td>
+                        <td><?= $appetizer['description'] ?></td>
+                        <td><?= $appetizer['price'] ?></td>
+                        <td>
+                            <a href="//localhost/php/Restaurant/admin/dish/update/<?= $appetizer['id'] ?>">Modifier</a>
+                            <a href="//localhost/php/Restaurant/admin/dish/delete/<?= $appetizer['id'] ?>">Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="text-align: center" colspan="5">
+                            <a href="//localhost/php/Restaurant/admin/dish/new">Nouveau plat</a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </li>
+        <li>
+            <a href="#/" class="dishesLink">Plats</a>
+            <table class="pure-table pure-table-horizontal">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Gestion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dishes[1] as $index => $dish) : ?>
+                    <tr>
+                        <td><?= $index + 1 ?></td>
+                        <td><?= $dish['name'] ?></td>
+                        <td><?= $dish['description'] ?></td>
+                        <td><?= $dish['price'] ?></td>
+                        <td>
+                            <a href="//localhost/php/Restaurant/admin/dish/update/<?= $dish['id'] ?>">Modifier</a>
+                            <a href="//localhost/php/Restaurant/admin/dish/delete/<?= $dish['id'] ?>">Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="text-align: center" colspan="5">
+                            <a href="//localhost/php/Restaurant/admin/dish/new">Nouveau plat</a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </li>
+        <li>
+            <a href="#/" class="dishesLink">Desserts</a>
+            <table class="pure-table pure-table-horizontal">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Gestion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dishes[2] as $index => $dessert) : ?>
+                    <tr>
+                        <td><?= $index + 1 ?></td>
+                        <td><?= $dessert['name'] ?></td>
+                        <td><?= $dessert['description'] ?></td>
+                        <td><?= $dessert['price'] ?></td>
+                        <td>
+                            <a href="//localhost/php/Restaurant/admin/dish/update/<?= $dessert['id'] ?>">Modifier</a>
+                            <a href="//localhost/php/Restaurant/admin/dish/delete/<?= $dessert['id'] ?>">Supprimer</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="text-align: center" colspan="5">
+                            <a href="//localhost/php/Restaurant/admin/dish/new">Nouveau plat</a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </li>
+    </ul>
+</main>

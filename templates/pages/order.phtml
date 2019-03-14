@@ -1,0 +1,66 @@
+<main id="order">
+    <form action="cart" method="post">
+        <h3>Choisissez votre entrée : </h3>
+        <?php foreach ($appetizers as $index => $dish) : ?>
+            <div>
+                <img src="<?= $dish['image'] ?>" alt="">
+                <h4><?= $dish['name'] ?></h4>
+                <em><span class="price"><?= $dish['price'] ?></span> €</em>
+                <button><i class="fas fa-minus"></i></button>
+                <input type="text" name="appetizersQty[<?= $dish['id'] ?>]" value="<?php if (isset($_SESSION['cart']['appetizers'][$dish['id']])) : echo $_SESSION['cart']["appetizers"][$dish['id']]['qty'];
+                                                                                    else : ?>0<?php endif ?>">
+                <button><i class="fas fa-plus"></i></button>
+            </div>
+        <?php endforeach ?>
+        <h3>Choisissez votre plat : </h3>
+        <?php foreach ($dishes as $index => $dish) : ?>
+            <div>
+                <img src="<?= $dish['image'] ?>" alt="">
+                <h4><?= $dish['name'] ?></h4>
+                <em><span class="price"><?= $dish['price'] ?></span> €</em>
+                <button><i class="fas fa-minus"></i></button>
+                <input type="text" name="dishesQty[<?= $dish['id'] ?>]" value="<?php if (isset($_SESSION['cart']["dishes"][$dish['id']])) : echo $_SESSION['cart']["dishes"][$dish['id']]['qty'];
+                                                                                else : ?>0<?php endif ?>">
+                <button><i class="fas fa-plus"></i></button>
+            </div>
+        <?php endforeach ?>
+        <h3>Choisissez votre dessert : </h3>
+        <?php foreach ($desserts as $index => $dish) : ?>
+            <div>
+                <img src="<?= $dish['image'] ?>" alt="">
+                <h4><?= $dish['name'] ?></h4>
+                <em><span class="price"><?= $dish['price'] ?></span> €</em>
+                <button><i class="fas fa-minus"></i></button>
+                <input type="text" name="dessertsQty[<?= $dish['id'] ?>]" value="<?php if (isset($_SESSION['cart']['desserts'][$dish['id']])) : echo $_SESSION['cart']['desserts'][$dish['id']]['qty'];
+                                                                                else : ?>0<?php endif ?>">
+                <button><i class="fas fa-plus"></i></button>
+            </div>
+        <?php endforeach ?>
+        <div>Total : <input type="text" disabled  value="<?= $_SESSION['total'] ?? 0 ?>" id="total"> €</div>
+        <button type="submit">Commander</button>
+    </form>
+    <script>
+        const pluses = document.querySelectorAll(":scope div button:last-of-type");
+        const minuses = document.querySelectorAll(":scope div button:first-of-type");
+        const total = document.getElementById("total");
+        let val;
+
+        pluses.forEach(btn => btn.addEventListener("click", function(e){
+            e.preventDefault();
+            this.parentElement.childNodes[9].value++;
+            total.value = round(Number(total.value) + Number(this.parentElement.childNodes[5].childNodes[0].textContent), 2);
+        }));
+
+        minuses.forEach(btn => btn.addEventListener("click", function(e){
+            e.preventDefault();
+            if(this.parentElement.childNodes[9].value > 0){
+                this.parentElement.childNodes[9].value--;
+                total.value = round(Number(total.value) - Number(this.parentElement.childNodes[5].childNodes[0].textContent), 2);
+            }
+        }));
+
+        function round(value, decimals) {
+            return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+        }
+    </script>
+</main>

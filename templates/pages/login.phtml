@@ -1,0 +1,16 @@
+<main style="position: absolute; top: 44px; border-top-left-radius: 0; border-top-right-radius: 0; left: 30%; z-index: -1;">
+        <div class="error"><?php Session::displayErrors(); ?></div>
+        <div class="success"><?php Session::displaySuccesses(); ?></div>
+    <form action="login" method="post" class="pure-form">
+        <fieldset>
+            <input name="email" type="text" placeholder="Email ou numéro de téléphone">
+            <input name="password" type="password" placeholder="Mot de passe">
+
+            <label for="remember">
+                <input id="remember" name="remember" type="checkbox"> Rester connecté
+            </label>
+
+            <button type="submit" class="pure-button pure-button-primary">Connexion</button>
+        </fieldset>
+    </form>
+</main>
