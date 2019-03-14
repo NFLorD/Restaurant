@@ -1,0 +1,44 @@
+RewriteEngine On
+
+#PUBLIC-SIDE
+RewriteRule ^$   index.php [L]
+RewriteRule ^home$   index.php [L]
+
+RewriteRule ^order$   index.php?controller=DishesController&method=index [L]
+RewriteRule ^cart$   index.php?controller=DishesController&method=cart [L]
+RewriteRule ^cart/payment$   index.php?controller=DishesController&method=cart [L]
+RewriteRule ^cart/cancel$   index.php?controller=DishesController&method=cancel [L]
+
+RewriteRule ^menu/appetizers$   index.php?controller=DishesController&method=show&type=appetizers [L]
+RewriteRule ^menu/dishes$   index.php?controller=DishesController&method=show&type=dishes [L]
+RewriteRule ^menu/desserts$   index.php?controller=DishesController&method=show&type=desserts [L]
+
+RewriteRule ^reservation$   index.php?controller=ReservationsController&method=upsert [L]
+RewriteRule ^reservations$   index.php?controller=ReservationsController&method=index [L]
+RewriteRule ^reservations/update/([0-9]+)$   index.php?controller=ReservationsController&method=upsert&id=$1 [L]
+RewriteRule ^reservations/delete/([0-9]+)$   index.php?controller=ReservationsController&method=delete&id=$1 [L]
+
+RewriteRule ^login$   index.php?controller=CustomersController&method=login [L]
+RewriteRule ^logout$   index.php?controller=CustomersController&method=logout [L]
+RewriteRule ^signup$   index.php?controller=CustomersController&method=signup [L]
+
+
+#ADMIN-SIDE
+RewriteRule ^admin$   admin/index.php [L]
+    
+RewriteRule ^admin/dishes$   admin/index.php?controller=DishesController&method=index&type=all [L]
+RewriteRule ^admin/dish/([0-9]+)$   admin/index.php?controller=DishesController&method=show&id=$1 [L]
+RewriteRule ^admin/dish/new$   admin/index.php?controller=DishesController&method=upsert [L]
+RewriteRule ^admin/dish/update/([0-9]+)$   admin/index.php?controller=DishesController&method=upsert&id=$1 [L]
+RewriteRule ^admin/dish/delete/([0-9]+)$   admin/index.php?controller=DishesController&method=delete&id=$1 [L]
+
+RewriteRule ^admin/reservations$   admin/index.php?controller=ReservationsController&method=index [L]
+RewriteRule ^admin/reservations/([0-9]+)$   admin/index.php?controller=ReservationsController&method=show&id=$1 [L]
+RewriteRule ^admin/reservations/new$   admin/index.php?controller=ReservationsController&method=upsert [L]
+RewriteRule ^admin/reservations/update/([0-9]+)$   admin/index.php?controller=ReservationsController&method=upsert&id=$1 [L]
+RewriteRule ^admin/reservations/delete/([0-9]+)$   admin/index.php?controller=ReservationsController&method=delete&id=$1 [L]
+
+
+
+
+RewriteRule ^([0-9a-zA-Z]+)$ home [L]
