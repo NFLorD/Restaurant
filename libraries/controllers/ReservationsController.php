@@ -43,7 +43,19 @@ class ReservationsController extends Controller
             Http::redirectBack();
         }
 
+        if ($_POST['number'] < 1) {
+            Session::addError("Vous devez entrer un nombre de personnes.");
+            Http::redirectBack();
+        }
+
         $date = $_POST['date'] . " " . $_POST['time'];
+        $now = date("Y-m-d H:i");
+
+        if ($date < $now) {
+            Session::addError("Vous devez entrer une date correcte.");
+            Http::redirectBack();
+        }
+
         $email = $_POST['email'];
         $number = $_POST['number'];
 
@@ -65,13 +77,11 @@ class ReservationsController extends Controller
                 );
                 $sent = mail($email, "Réservation - Chez Nico'", "Vous avez réservé pour $number personne(s) le $date.\n 
                 Pour tout changement, suivez ce lien : localhost/Restaurant/reservations/update/$password,\n
-                pour la supprimer : localhost/Restaurant/reservations/delete/$password", $headers);
-                var_dump($sent);
-                exit;
+                pour la supprimer : localhost/Restaurant/reservations/delete/$password");
             }
             Http::redirectBack();
         } else {
-            if(is_int($_GET['id'])){
+            if (is_int($_GET['id'])) {
                 $this->model->update('id', $_GET['id'], ['name' => $_POST['name'], 'email' => $_POST['email'], 'number' => $_POST['number'], 'date' => $date]);
             } else {
                 $this->model->update('password', $_GET['id'], ['name' => $_POST['name'], 'email' => $_POST['email'], 'number' => $_POST['number'], 'date' => $date]);

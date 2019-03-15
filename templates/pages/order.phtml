@@ -1,4 +1,5 @@
 <main id="order">
+        <div class="error"><?php Session::displayErrors(); ?></div>
     <form action="cart" method="post">
         <h3>Choisissez votre entrée : </h3>
         <?php foreach ($appetizers as $index => $dish) : ?>
@@ -36,7 +37,7 @@
                 <button><i class="fas fa-plus"></i></button>
             </div>
         <?php endforeach ?>
-        <div>Total : <input type="text" disabled  value="<?= $_SESSION['total'] ?? 0 ?>" id="total"> €</div>
+        <div>Total : <input type="text" disabled value="<?= $_SESSION['total'] ?? 0 ?>" id="total"> €</div>
         <button type="submit">Commander</button>
     </form>
     <script>

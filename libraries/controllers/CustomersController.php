@@ -28,21 +28,6 @@ class CustomersController extends Controller
         $this->display($template, compact("title", "user", "statuses"));
     }
 
-    public function create()
-    {
-
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-
-    }
-
     /**
      * The log-in function.
      *
@@ -81,6 +66,14 @@ class CustomersController extends Controller
             Session::connect($user);
         }
 
+        if ($_POST['remember']) {
+            setcookie("user_id", $user['id'], time() + 60 * 60 * 24 * 30);
+            setcookie("user_firstname", $user['firstname'], time() + 60 * 60 * 24 * 30);
+            setcookie("user_lastname", $user['lastname'], time() + 60 * 60 * 24 * 30);
+            setcookie("user_phonenumber", $user['phonenumber'], time() + 60 * 60 * 24 * 30);
+            setcookie("user_email", $user['email'], time() + 60 * 60 * 24 * 30);
+        }
+
         Http::redirect("home");
     }
 
@@ -91,6 +84,18 @@ class CustomersController extends Controller
      */
     public function logout()
     {
+        if (isset($_COOKIE['user_id'])) {
+            unset($_COOKIE['user_id']);
+            unset($_COOKIE['user_firstname']);
+            unset($_COOKIE['user_lastname']);
+            unset($_COOKIE['user_phonenumber']);
+            unset($_COOKIE['user_email']);
+            setcookie('user_id', '', 1);
+            setcookie('user_firstname', '', 1);
+            setcookie('user_lastname', '', 1);
+            setcookie('user_phonenumber', '', 1);
+            setcookie('user_email', '', 1);
+        }
         Session::disconnect();
         Http::redirect("home");
     }

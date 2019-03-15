@@ -1,21 +1,5 @@
 <?php 
 
-if (empty($_SESSION['flashes'])) {
-    $_SESSION['flashes'] = ['errors' => [], 'successes' => []];
-}
-if (empty($_SESSION['connected'])) {
-    $_SESSION['connected'] = false;
-}
-if (empty($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
-if (empty($_SESSION['ordering'])) {
-    $_SESSION['ordering'] = false;
-}
-if (empty($_SESSION['total'])) {
-    $_SESSION['total'] = 0;
-}
-
 class Session
 {
     public static function connect($user)

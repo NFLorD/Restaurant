@@ -4,60 +4,62 @@
                 <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/Restaurant" class="pure-menu-link">Accueil</a></li>
 
                 <li class="pure-menu-item dropdown">
-                    <a href="#/" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/menu") : echo 'style="background: white"';
-                                endif ?> class="pure-menu-link">Carte</a>
+                    <a href="#/" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/menu") : echo 'style="background: white"';
+                                endif ?> class="pure-menu-link">Carte 
+                    <i class="fas fa-caret-down"></i></a>
                     <ul>
-                         <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/menu/appetizers" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/menu/appetizers") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
+                         <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/menu/appetizers" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/menu/appetizers") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
                                                                                                 endif ?> class="pure-menu-link">Entrées</a></li>
 
-                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/menu/dishes" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/menu/dishes") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
+                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/menu/dishes" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/menu/dishes") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
                                                                                         endif ?> class="pure-menu-link">Plats</a></li>
 
-                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/menu/desserts" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/menu/desserts") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
+                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/menu/desserts" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/menu/desserts") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
                                                                                             endif ?> class="pure-menu-link">Desserts</a></li>
                    </ul>
                 </li>
 
-                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/reservation" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/reservation") : echo 'style="background: white"';
+                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/reservation" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/reservation") : echo 'style="background: white"';
                                                                                 endif ?> class="pure-menu-link">Réserver</a></li>
             
             <?php if (!$_SESSION['ordering']) : ?>
-                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/order" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/order") : echo 'style="background: white"';
+                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/order" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/order") : echo 'style="background: white"';
                                                                             endif ?> class="pure-menu-link">Commander</a></li>
             <?php else : ?>
-                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/cart" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/cart") : echo 'style="background: white"';
+                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/cart" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/cart") : echo 'style="background: white"';
                                                                             endif ?> class="pure-menu-link">Ma commande</a></li>
             <?php endif ?>
 
             <?php if (!$_SESSION['connected']) : ?>
-                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/login" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/login") : echo 'style="background: white"';
+                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/login" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/login") : echo 'style="background: white"';
                                                                             endif ?> class="pure-menu-link">Connexion</a></li>
 
-                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/signup" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/signup") : echo 'style="background: white"';
+                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/signup" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/signup") : echo 'style="background: white"';
                                                                             endif ?> class="pure-menu-link">Inscription</a></li>
             <?php endif ?>
 
             <?php if ($_SESSION['connected'] && $_SESSION['user']['id'] == 1) : ?>
                <li class="pure-menu-item dropdown">
-                   <a href="#/" class="pure-menu-link" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/admin/dishes" || "//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/admin/reservations") : echo 'style="background: white"';
-                                                        endif ?>>Gestion du site</a>
+                   <a href="#/" class="pure-menu-link" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/admin/dishes" || "//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/admin/reservations") : echo 'style="background: white"';
+                                                        endif ?>>Gestion du site 
+                   <i class="fas fa-caret-down"></i></a>
                    <ul>
-                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/admin/dishes" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/admin/dishes") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
+                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/admin/dishes" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/admin/dishes") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
                                                                                             endif ?> class="pure-menu-link">Plats</a></li>
 
-                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/admin/reservations" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/admin/reservations") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
+                        <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/admin/reservations" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/admin/reservations") : echo 'style="color: #dfb15b; border: 0.3px dotted gray"';
                                                                                                 endif ?> class="pure-menu-link">Réservations</a></li>
                    </ul>
                </li>
             <?php endif ?>
 
             <?php if ($_SESSION['connected'] && $_SESSION['user']['id'] != 1) : ?>
-                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/reservations" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/reservations") : echo 'style="background: white"';
+                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/reservations" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/reservations") : echo 'style="background: white"';
                                                                                     endif ?> class="pure-menu-link">Mes réservations</a></li>
             <?php endif ?>
 
             <?php if ($_SESSION['connected']) : ?>
-                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/logout" <?php if ("//localhost".$_SERVER['REDIRECT_URL'] == WEB_ROOT."/logout") : echo 'style="background: white"';
+                <li class="pure-menu-item"><a href="<?= WEB_ROOT ?>/logout" <?php if ("//localhost" . $_SERVER['REDIRECT_URL'] == WEB_ROOT . "/logout") : echo 'style="background: white"';
                                                                             endif ?> class="pure-menu-link">Déconnexion (<?= $_SESSION['user']['firstname'] . " " . $_SESSION['user']['lastname'] ?>)</a></li>
             <?php endif ?>
         </ul>

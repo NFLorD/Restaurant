@@ -2,6 +2,7 @@
 require ROOT . "/libraries/models/CustomersModel.php";
 require ROOT . "/libraries/models/DishesModel.php";
 require ROOT . "/libraries/models/ReservationsModel.php";
+require ROOT . "/libraries/models/OrdersModel.php";
 
 abstract class Controller
 {

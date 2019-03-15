@@ -1,4 +1,5 @@
 <?php 
+require_once "_DB.php";
 
 abstract class Tables
 {
@@ -13,57 +14,12 @@ abstract class Tables
     }
 
     /**
-     * SQL - Finds one or more entries
+     * Find all entries
      *
-     * @param [type] $whereValue
-     * @param string $whereColumn
-     * @param integer $limit
-     * @return void
+     * @param int $limit your entries
+     * @param string $order - SQL
+     * @return array
      */
-    public function GET($whereValue, string $whereColumn = "id", int $limit = 0)
-    {
-        //
-    }
-
-    /**
-     * SQL - Creates or update an entry
-     *
-     * @param array $values
-     * @param string $whereValue
-     * @param string $where
-     * @return void
-     */
-    public function PUT(array $values, string $whereValue = null, string $where = null)
-    {
-        if ($whereValue && $where) {
-            $this->update($where, $whereValue, $values);
-        } else {
-            $this->create($values);
-        }
-    }
-
-    /**
-     * SQL - Deletes an entry
-     *
-     * @param string $id
-     * @param string $column Default = "id"
-     * @return void
-     */
-    public function DELETE(string $value, string $column = "id")
-    {
-        $query = $this->getPDO()->prepare("DELETE FROM $this->table WHERE $column = :placeholder");
-        $query->execute([':placeholder' => $value]);
-    }
-
-    // 
-    //
-    //
-
-    private function getPDO() : PDO
-    {
-        return new PDO("mysql:host=localhost;dbname=restaurant;charset=utf8", "root", "");
-    }
-
     public function findAll(int $limit = 0, string $order = "")
     {
         $sql = "SELECT * FROM $this->table";
@@ -73,11 +29,20 @@ abstract class Tables
             $sql .= $order;
         }
 
-        $query = $this->getPDO()->prepare($sql);
+        $query = DB::getPDO()->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Find some entries
+     *
+     * @param [type] $whereValue
+     * @param string $whereColumn
+     * @param boolean $multipleReturns
+     * @param string $order - SQL
+     * @return array
+     */
     public function find($whereValue, string $whereColumn = "id", bool $multipleReturns = false, string $order = "")
     {
         $sql = "SELECT * FROM $this->table WHERE";
@@ -96,12 +61,19 @@ abstract class Tables
         if ($order != "") {
             $sql .= $order;
         }
-        $query = $this->getPDO()->prepare($sql);
+        $query = DB::getPDO()->prepare($sql);
         $query->execute($exec);
         if ($multipleReturns) return $query->fetchAll(PDO::FETCH_ASSOC);
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Find LIKE (SQL)
+     *
+     * @param [type] $whereValue
+     * @param array $columns
+     * @return void
+     */
     public function findLike($whereValue, array $columns)
     {
         $sql = "SELECT * FROM $this->table WHERE";
@@ -112,7 +84,7 @@ abstract class Tables
         }
         $sql = substr($sql, 0, -3);
 
-        $query = $this->getPDO()->prepare($sql);
+        $query = DB::getPDO()->prepare($sql);
         $query->execute($exec);
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -125,7 +97,7 @@ abstract class Tables
      */
     public function create(array $values)
     {
-        $db = $this->getPDO();
+        $db = DB::getPDO();
         $cols = array_keys($values);
         $placeholders = "";
         foreach ($cols as $col) {
@@ -164,8 +136,21 @@ abstract class Tables
         $vals[] .= $whereValue;
         $values = array_combine($keys, $vals);
 
-        $query = $this->getPDO()->prepare("UPDATE $this->table SET $set WHERE $where = :whereVal");
+        $query = DB::getPDO()->prepare("UPDATE $this->table SET $set WHERE $where = :whereVal");
         $query->execute($values);
+    }
+
+    /**
+     * SQL - Deletes an entry
+     *
+     * @param string $id
+     * @param string $column Default = "id"
+     * @return void
+     */
+    public function delete(string $value, string $column = "id")
+    {
+        $query = DB::getPDO()->prepare("DELETE FROM $this->table WHERE $column = :placeholder");
+        $query->execute([':placeholder' => $value]);
     }
 }
 

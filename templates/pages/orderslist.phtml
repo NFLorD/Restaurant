@@ -1,0 +1,26 @@
+<main>
+        <div class="error"><?php Session::displayErrors(); ?></div>
+        <div class="success"><?php Session::displaySuccesses(); ?></div>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Contenu</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Prix</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($orders as $index => $order) : ?>
+                <tr>
+                    <td><?= $index + 1 ?></td>
+                    <td><?= $order['content'] ?></td>
+                    <td><?= $order['name'] ?></td>
+                    <td><?= $order['address'] ?></td>
+                    <td><?= $order['price'] ?></td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</main>

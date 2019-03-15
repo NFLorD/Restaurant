@@ -3,9 +3,9 @@ html {
   font-family: "Oswald", sans-serif;
   /* font-family: 'Montserrat', sans-serif; */
   line-height: 28px;
-
-  /* This is for the always-on-bottom footer */
-  height: 95%;
+  overflow-x: hidden;
+  height: 100%;
+  position: relative;
 }
 
 *,
@@ -15,30 +15,35 @@ html {
 }
 
 header {
-  max-width: 62vw;
-  margin: 5vh auto;
+  max-width: 850px;
+  margin: 5vh auto 0 auto;
   text-align: center;
 }
 
 main {
-  width: 40vw;
+  width: 750px;
   text-align: left;
-  margin: 0 auto;
+  margin: 50px auto 100px auto;
   background: rgba(255, 255, 255, 0.5);
   text-align: center;
   padding: 20px;
   border-radius: 30px;
-  margin-bottom: 10vh;
+}
+
+header::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url("../images/restaurant.jpeg") right;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
 }
 
 body {
-  background: url("../images/restaurant.jpeg");
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  /* This is for the always-on-bottom footer */
-  padding-bottom: 6rem;
-  min-height: 100%;
   position: relative;
   z-index: -1;
 }
@@ -64,6 +69,7 @@ th {
 nav {
   background: rgba(255, 255, 255, 0.8);
   border-radius: 30px;
+  padding: 0 20px;
 }
 
 nav ul li a.pure-menu-link {
@@ -81,15 +87,10 @@ footer {
   background: rgba(255, 255, 255, 0.5);
   text-align: center;
   padding: 20px;
-  width: 100%;
   color: rgba(0, 0, 0, 0.9);
-
-  /* This is for the always-on-bottom footer */
-  position: absolute;
-  right: 0;
+  position: fixed;
   bottom: 0;
-  left: 0;
-  padding: 1.2rem;
+  width: 100%;
 }
 
 table {
@@ -104,6 +105,14 @@ td:last-child {
 nav {
   display: flex;
   justify-content: space-around;
+}
+
+nav ul li .fas.fa-caret-down {
+  color: #dfb15b;
+  position: absolute;
+  padding-top: 5px;
+  margin-left: 15px;
+  display: none;
 }
 
 nav ul li {
@@ -169,9 +178,17 @@ nav ul li.dropdown li a {
   color: gray;
 }
 
-#dishlist {
+#subscr label {
+  position: relative;
+  width: 200px;
   margin: 0 auto;
-  width: 50%;
+}
+
+#subscr label input {
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 8px;
 }
 
 #dishlist ul li table {
@@ -194,6 +211,15 @@ nav ul li.dropdown li a {
 .success {
   color: green;
 }
+/* 
+.error,
+.success {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+  max-width: 70%;
+  margin: 50px auto -15px auto;
+  text-align: center;
+} */
 
 div.logo {
   background: url("../images/logoD.png") center, rgba(255, 255, 255, 0.8);
@@ -222,8 +248,8 @@ form input {
 
 #menu h2 {
   padding: 15px;
-  width: 92.7%;
-  margin: 20px auto 10px auto;
+  width: 100%;
+  margin: 10px 30px 10px 30px;
   color: #dfb15b;
   background: white;
   text-decoration: underline;
@@ -252,6 +278,7 @@ main#order form > div h4 {
 main#order form > div input {
   width: 25px;
   text-align: center;
+  padding-right: 2px;
 }
 
 #order button {
@@ -297,4 +324,161 @@ main#order form > div input {
 
 #cart aside {
   margin-left: 10px;
+}
+
+#cart #payForm {
+  display: none;
+  flex-flow: column wrap;
+  height: 500px;
+  width: 380px;
+  margin: 0 auto;
+  border-radius: 30px;
+}
+
+#cart #payForm > * {
+  margin: 30px auto 0px;
+  width: 90%;
+}
+
+#cart #payForm fieldset * {
+  margin: 8px auto;
+  display: block;
+}
+
+#cart fieldset {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#login {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+@media screen and (max-width: 1100px) {
+  header {
+    max-width: 80%;
+  }
+
+  main {
+    max-width: 70%;
+  }
+
+  #login {
+    padding: 5px;
+    margin: 50px auto;
+    border-radius: 30px;
+  }
+
+  #login fieldset > * {
+    display: block;
+    margin: 10px auto;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  header {
+    max-width: 80%;
+    margin: 20px auto;
+  }
+
+  main {
+    max-width: 80%;
+  }
+
+  div.logo {
+    transform: scale(0.8);
+  }
+
+  nav#myNav {
+    border-radius: 50px;
+  }
+
+  nav#myNav > ul {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  nav#myNav > ul > li {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    width: 100%;
+    padding: 0;
+    order: 2;
+  }
+
+  main {
+    max-width: 100%;
+    order: 2;
+    padding: 0;
+  }
+
+  main table {
+    width: 100%;
+  }
+
+  div.logo {
+    transform: scale(0.5) translate(-150px, -140px);
+    margin: 40px auto -100px auto;
+    order: 1;
+  }
+
+  nav#myNav > ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav#myNav > ul,
+  nav#myNav > ul > li,
+  nav#myNav > ul > li > a {
+    width: 100%;
+  }
+
+  nav#myNav > ul > li:first-of-type,
+  nav#myNav > ul > li:first-of-type > a {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+
+  nav#myNav > ul > li:last-of-type,
+  nav#myNav > ul > li:last-of-type > a {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+
+  nav ul li ul {
+    position: relative;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    height: 0;
+    background: rgba(255, 255, 255);
+    list-style-type: none;
+    padding-left: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: height 1s;
+    z-index: 20;
+    border: 0.5px solid gray;
+    border-top: none;
+  }
+
+  nav ul li:hover > a {
+    border: 0.5px solid gray;
+  }
+
+  nav ul li .fas.fa-caret-down {
+    display: inline-block;
+  }
 }

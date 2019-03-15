@@ -1,9 +1,9 @@
 <?php 
 require "_Controller.php";
 
-class DishesController extends Controller
+class OrdersController extends Controller
 {
-    protected $modelName = "Dishes";
+    protected $modelName = "Orders";
 
     public function index(string $mode = "visitor")
     {
@@ -31,20 +31,7 @@ class DishesController extends Controller
 
     public function show()
     {
-        if ($_GET['type'] == "appetizers") {
-            $title = "Nos entrées";
-            $dishes = $this->model->find("appetizer", "type", true);
-        }
-        if ($_GET['type'] == "dishes") {
-            $title = "Les plats";
-            $dishes = $this->model->find("dish", "type", true);
-        }
-        if ($_GET['type'] == "desserts") {
-            $title = "Les desserts";
-            $dishes = $this->model->find("dessert", "type", true);
-        }
-        $template = "menu";
-        $this->display($template, compact("title", "dishes"));
+
     }
 
     public function upsert()
@@ -92,65 +79,13 @@ class DishesController extends Controller
     {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-        if (!is_int($id)) {
+        if (!$id) {
             Http::redirect(WEB_ROOT . "/admin");
         }
 
         $this->model->delete($id);
 
         Http::redirectBack();
-    }
-
-    public function cart()
-    {
-        $orderedAppetizers = [];
-        $orderedDishes = [];
-        $orderedDesserts = [];
-        foreach ($_POST['appetizersQty'] as $id => $qty) {
-            if ($qty != 0) {
-                $orderedAppetizers[$id] = ["qty" => $qty, "details" => $this->model->find($id)];
-            }
-        }
-        foreach ($_POST['dishesQty'] as $id => $qty) {
-            if ($qty != 0) {
-                $orderedDishes[$id] = ["qty" => $qty, "details" => $this->model->find($id)];
-            }
-        }
-        foreach ($_POST['dessertsQty'] as $id => $qty) {
-            if ($qty != 0) {
-                $orderedDesserts[$id] = ["qty" => $qty, "details" => $this->model->find($id)];
-            }
-        }
-        $_SESSION['cart'] = ["appetizers" => $orderedAppetizers, "dishes" => $orderedDishes, "desserts" => $orderedDesserts];
-        $_SESSION['total'] = 0;
-        foreach ($_SESSION['cart'] as $category) {
-            foreach ($category as $dish) {
-                $_SESSION['total'] += $dish['qty'] * $dish['details']['price'];
-            }
-        }
-
-        if (!$orderedAppetizers && !$orderedDishes && !$orderedDesserts) {
-            Session::addError("Vous n'avez rien sélectionné !");
-            Http::redirectBack();
-        } else {
-            $_SESSION['ordering'] = true;
-        }
-
-
-        if (!$_SESSION['ordering']) {
-            Http::redirect(WEB_ROOT . "/home");
-        }
-        $title = "Ma commande";
-        $template = "cart";
-        $this->display($template, compact("title"));
-    }
-
-    public function cancel()
-    {
-        $_SESSION['ordering'] = false;
-        $_SESSION['cart'] = [];
-        $_SESSION['total'] = 0;
-        Http::redirect(WEB_ROOT . "/home");
     }
 }
 

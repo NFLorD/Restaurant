@@ -11,11 +11,51 @@
         <form action="<?= WEB_ROOT ?>/order">
             <button>Modifier</button>
         </form>
-        <form action="cart/payment">
-            <button>Confirmer et payer</button>
+        <form>
+            <button id="payBtn">Confirmer et payer</button>
         </form>
         <form action="cart/cancel">
             <button>Annuler</button>
         </form>
     </aside>
+    <form action="cart/payment" id="payForm">
+           <fieldset>
+                <div class="pure-control-group">
+                    <label for="name" <?php if ($_SESSION['connected']) : ?>hidden<?php endif ?>>Nom :</label>
+                    <input id="name" <?php if ($_SESSION['connected']) : ?>hidden<?php endif ?> name="name" type="text" value="<?php if ($_SESSION['connected']) : echo $_SESSION['user']['lastname'];
+                                                                                                                                endif ?>">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="address">Adresse :</label>
+                    <input id="address" name="address" type="text" value="">
+                </div>
+           </fieldset>
+
+           <fieldset>
+                <div class="pure-control-group">
+                    <label for="cardnumber">Numéro de carte bancaire :</label>
+                    <input type="text" name="cardnumber" id="cardnumber" value="">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="cryptogram">Cryptogramme visuel (3 chiffres)</label>
+                    <input name="cryptogram" type="text" value="">
+                </div>
+           </fieldset>
+
+            <div class="pure-controls">
+                <button type="submit" class="pure-button pure-button-primary">Payer</button>
+            </div>
+    </form>
+    <script>
+        const payBtn = document.getElementById("payBtn");
+        const payForm = document.getElementById("payForm");
+        payBtn.addEventListener("click", function(e){
+            e.preventDefault();
+            payForm.style.display = "flex";
+            document.querySelector("section").style.display = "none";
+            document.querySelector("aside").style.display = "none";
+        })
+    </script>
 </main>
